@@ -22,14 +22,18 @@ const AddMovieForm = (props) => {
         });
     }
 
-    const handleSubmit = (e) => {
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     props.addMovie(movie)
+    //     push('/movies')
+    // }
 
     const { title, director, genre, metascore, description } = movie;
     return(<div className="col">
         <div className="modal-dialog">
             <div className="modal-content">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={()=>{ props.addMovie(movie)
+                                      push('/movies')}}>
                     <div className="modal-header">						
                         <h4 className="modal-title">Add Movie</h4>
                     </div>
@@ -67,4 +71,10 @@ const AddMovieForm = (props) => {
     </div>);
 }
 
-export default AddMovieForm;
+const mapDispatchToProps= dispatch =>{
+    return{
+        addMovie: (newMovie) => dispatch(addMovie(newMovie))
+    }  
+}
+
+export default connect(null, mapDispatchToProps)(AddMovieForm);
