@@ -1,12 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import { addFavorite } from '../actions/favoriteActions';
+import { deleteMovie } from '../actions/movieActions';
 
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const movies = [];
-    const movie = movies.find(movie=>movie.id===Number(id));
+    //const movies = [];
+    const movie = props.movies.find(movie=>movie.id===Number(id));
+    console.log(id)
     
     return(<div className="modal-page col">
         <div className="modal-dialog">
@@ -37,8 +41,14 @@ const Movie = (props) => {
                         </section>
                         
                         <section>
-                            <span className="m-2 btn btn-dark">Favorite</span>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            <span className="m-2 btn btn-dark" onClick={() => props.addFavorite(movie)}>Favorite</span>
+                            <span className="delete">
+                                <input 
+                                    type="button" 
+                                    onClick={() => {props.deleteMovie(id)
+                                                    push('/movies')}} 
+                                    className="m-2 btn btn-danger" value="Delete"/>
+                            </span>
                         </section>
                     </div>
                 </div>
@@ -47,4 +57,17 @@ const Movie = (props) => {
     </div>);
 }
 
-export default Movie;
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movieList.movies,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteMovie: (id) => dispatch(deleteMovie(id)),
+        addFavorite: (newMovie) => dispatch(addFavorite(newMovie))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
