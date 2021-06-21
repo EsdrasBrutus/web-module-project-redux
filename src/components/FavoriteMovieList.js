@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { deleteFavorite } from '../actions/favoriteActions';
 
 
+
 const FavoriteMovieList = (props) => {
     //const favorites = [];
   
@@ -16,7 +17,8 @@ const FavoriteMovieList = (props) => {
                 return <div key={movie.id}>
                     <Link className="btn btn-light savedButton" to={`/movies/${movie.id}`}>
                         {movie.title}
-                        <span><span className="material-icons" onClick={()=> deleteFavorite(movie.id)}>remove_circle</span></span>
+                        <span ><span className="material-icons" onClick={()=> {props.deleteFavorite(movie.id)
+                        console.log(movie.id)}}>remove_circle</span></span>
                     </Link> 
                 </div>
             })

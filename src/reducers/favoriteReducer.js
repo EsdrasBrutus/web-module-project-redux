@@ -23,9 +23,9 @@ export const reducer = (state = initialState, action) => {
             };
             
         case DELETE_FAVORITE:
-            console.log('delete this')
             return {
-                favorites: state.favorites.filter(item=>(action.payload !== item.id))
+                ...state,
+                favorites: state.favorites.filter(item=>(action.payload != item.id))
             };
 
         default:

@@ -10,7 +10,6 @@ const Movie = (props) => {
 
     //const movies = [];
     const movie = props.movies.find(movie=>movie.id===Number(id));
-    console.log(id)
     
     return(<div className="modal-page col">
         <div className="modal-dialog">
